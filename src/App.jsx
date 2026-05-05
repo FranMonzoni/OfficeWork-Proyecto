@@ -1,121 +1,82 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { useState, useEffect } from 'react'
+import { getEspacios } from './services/espaciosService'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [espacios, setEspacios] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    fetchEspacios()
+  }, [])
+
+  const fetchEspacios = async () => {
+    try {
+      setLoading(true)
+      const data = await getEspacios()
+      setEspacios(data)
+      setError(null)
+    } catch (err) {
+      console.error('Error al cargar espacios:', err)
+      setError('No se pudieron cargar los espacios. Verifica la configuración de Firebase.')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app">
+      <header>
+        <h1>Sistema de Espacios Coworking</h1>
+      </header>
+      
+      <main>
+        <section className="status">
+          {loading && <p>Cargando espacios...</p>}
+          {error && <p className="error">{error}</p>}
+          {!loading && !error && (
+            <p>Conexión exitosa con Firebase. {espacios.length} espacios encontrados.</p>
+          )}
+        </section>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        <section className="espacios">
+          <h2>Espacios Disponibles</h2>
+          {espacios.length > 0 ? (
+            <div className="espacios-grid">
+              {espacios.map(espacio => (
+                <div key={espacio.id} className="espacio-card" style={{ backgroundColor: espacio.color }}>
+                  <h3>{espacio.name}</h3>
+                  <p className="type">{espacio.typeLabel}</p>
+                  <p className="desc">{espacio.desc}</p>
+                  <div className="details">
+                    <span className="dim">{espacio.dim}</span>
+                    <span className="cap">{espacio.cap}</span>
+                  </div>
+                  <div className="status">
+                    <span className={`available ${espacio.available ? 'yes' : 'no'}`}>
+                      {espacio.available ? 'Disponible' : 'No disponible'}
+                    </span>
+                  </div>
+                  {espacio.features && espacio.features.length > 0 && (
+                    <div className="features">
+                      <h4>Características:</h4>
+                      <ul>
+                        {espacio.features.map((feature, index) => (
+                          <li key={index}>{feature}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          ) : (
+            !loading && !error && <p>No hay espacios configurados aún.</p>
+          )}
+        </section>
+      </main>
+    </div>
   )
 }
 

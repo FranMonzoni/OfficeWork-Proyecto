@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getEspacios } from './services/espaciosService'
+import FirebaseTest from './components/FirebaseTest'
 import './App.css'
 
 function App() {
@@ -30,6 +31,8 @@ function App() {
       <header>
         <h1>Sistema de Espacios Coworking</h1>
       </header>
+      
+      <FirebaseTest />
       
       <main>
         <section className="status">

@@ -1,38 +1,69 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { getEspacios } from './services/espaciosService'
-import FirebaseTest from './components/FirebaseTest'
+import { AuthProvider } from './context/AuthContext'
+import ProtectedRoute from './components/ProtectedRoute'
+import AdminRoute from './components/AdminRoute'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Administrador from './pages/Administrador'
 import './App.css'
 
-function App() {
-  const [espacios, setEspacios] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+// Componente para la página principal
+const HomePage = () => {
+  const [espacios, setEspacios] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchEspacios()
-  }, [])
+    fetchEspacios();
+  }, []);
 
   const fetchEspacios = async () => {
     try {
-      setLoading(true)
-      const data = await getEspacios()
-      setEspacios(data)
-      setError(null)
+      const data = await getEspacios();
+      setEspacios(data);
+      setError(null);
     } catch (err) {
-      console.error('Error al cargar espacios:', err)
-      setError('No se pudieron cargar los espacios. Verifica la configuración de Firebase.')
+      console.error('Error al cargar espacios:', err);
+      setError('No se pudieron cargar los espacios. Verifica la configuración de Firebase.');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="app">
       <header>
         <h1>Sistema de Espacios Coworking</h1>
+        <nav style={{ marginTop: '20px' }}>
+          <a 
+            href="/login" 
+            style={{ 
+              color: '#007bff', 
+              textDecoration: 'none', 
+              marginRight: '20px',
+              padding: '8px 16px',
+              border: '1px solid #007bff',
+              borderRadius: '4px'
+            }}
+          >
+            Iniciar Sesión
+          </a>
+          <a 
+            href="/administrador" 
+            style={{ 
+              color: '#28a745', 
+              textDecoration: 'none',
+              padding: '8px 16px',
+              border: '1px solid #28a745',
+              borderRadius: '4px'
+            }}
+          >
+            Administración
+          </a>
+        </nav>
       </header>
-      
-      <FirebaseTest />
       
       <main>
         <section className="status">
@@ -80,7 +111,30 @@ function App() {
         </section>
       </main>
     </div>
-  )
+  );
+};
+
+function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route 
+            path="/administrador" 
+            element={
+              <AdminRoute>
+                <Administrador />
+              </AdminRoute>
+            } 
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;

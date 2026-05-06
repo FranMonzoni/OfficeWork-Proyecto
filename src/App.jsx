@@ -7,6 +7,7 @@ import AdminRoute from './components/AdminRoute'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Administrador from './pages/Administrador'
+import FirebaseDebug from './components/FirebaseDebug'
 import './App.css'
 
 // Componente para la página principal
@@ -38,19 +39,6 @@ const HomePage = () => {
         <h1>Sistema de Espacios Coworking</h1>
         <nav style={{ marginTop: '20px' }}>
           <a 
-            href="/login" 
-            style={{ 
-              color: '#007bff', 
-              textDecoration: 'none', 
-              marginRight: '20px',
-              padding: '8px 16px',
-              border: '1px solid #007bff',
-              borderRadius: '4px'
-            }}
-          >
-            Iniciar Sesión
-          </a>
-          <a 
             href="/administrador" 
             style={{ 
               color: '#28a745', 
@@ -60,7 +48,7 @@ const HomePage = () => {
               borderRadius: '4px'
             }}
           >
-            Administración
+            Panel de Administración
           </a>
         </nav>
       </header>
@@ -70,7 +58,7 @@ const HomePage = () => {
           {loading && <p>Cargando espacios...</p>}
           {error && <p className="error">{error}</p>}
           {!loading && !error && (
-            <p>Conexión exitosa con Firebase. {espacios.length} espacios encontrados.</p>
+            <p>Explora nuestros {espacios.length} espacios de coworking disponibles.</p>
           )}
         </section>
 

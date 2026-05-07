@@ -8,10 +8,10 @@
   --bg-subtle:      #F5F5F3;
   --bg-muted:       #EBEBEA;
 
-  /* Texto */
-  --text-primary:   #141413;
-  --text-secondary: #4A4A48;
-  --text-muted:     #9A9A96;
+  /* Texto - Mejor contraste */
+  --text-primary:   #000000;
+  --text-secondary: #333333;
+  --text-muted:     #666666;
 
   /* Acento principal */
   --accent:         #3D6B5E;
@@ -130,7 +130,7 @@ body {
   border-radius: var(--radius-pill);
   padding: 6px 14px;
   font-size: 12px;
-  color: var(--text-secondary);
+  color: #333333;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -269,16 +269,16 @@ body {
 
 .room-desc {
   font-size: 13px;
-  color: var(--text-muted);
+  color: #333333;
   line-height: 1.6;
   margin-bottom: 1rem;
 }
 
 .room-meta {
   display: flex;
-  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 1rem;
-  flex-wrap: wrap;
 }
 
 .meta-item {
@@ -286,7 +286,7 @@ body {
   align-items: center;
   gap: 5px;
   font-size: 12.5px;
-  color: var(--text-muted);
+  color: #666666;
 }
 
 .meta-item svg { color: var(--accent); }
@@ -305,7 +305,7 @@ body {
   border-radius: var(--radius-sm);
   padding: 4px 9px;
   font-size: 11.5px;
-  color: var(--text-muted);
+  color: #666666;
 }
 
 /* FOOTER INFO */
@@ -334,7 +334,7 @@ body {
 }
 
 .info-link {
-  color: var(--accent);
+  color: #3D6B5E;
   text-decoration: none;
   font-size: 13.5px;
   font-weight: 500;
@@ -383,7 +383,7 @@ body {
   border: none;
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  color: var(--text-primary);
+  color: #000000;
   font-size: 14px;
   font-family: var(--font-body);
 }
@@ -397,7 +397,7 @@ body {
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: #666666;
   margin-bottom: 8px;
   margin-top: 1.2rem;
 }
@@ -415,8 +415,8 @@ body {
   padding: 0.75rem 1rem;
 }
 
-.spec-label { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; }
-.spec-value { font-size: 15px; font-weight: 500; color: var(--dark); }
+.spec-label { font-size: 11px; color: #666666; margin-bottom: 2px; }
+.spec-value { font-size: 15px; font-weight: 500; color: #000000; }
 .modal-features {
   display: flex;
   flex-wrap: wrap;
@@ -424,21 +424,12 @@ body {
   margin-top: 0.5rem;
 }
 
-.modal-status {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 1.2rem;
-  padding: 0.75rem 1rem;
-  border-radius: 10px;
-}
-
-.modal-status.available { background: var(--avail-bg); }
-.modal-status.unavailable { background: var(--busy-bg); }
+.modal-status.available { background: var(--available-bg); }
+.modal-status.unavailable { background: var(--occupied-bg); }
 .modal-status-text { font-size: 13.5px; font-weight: 500; }
-.modal-status.available .modal-status-text { color: var(--avail); }
-.modal-status.unavailable .modal-status-text { color: var(--busy); }
-.modal-status-sub { font-size: 12px; color: var(--text-muted); }
+.modal-status.available .modal-status-text { color: var(--available); }
+.modal-status.unavailable .modal-status-text { color: var(--occupied); }
+.modal-status-sub { font-size: 12px; color: #666666; }
 
 /* LOGIN PAGE STYLES */
 .login-page {
@@ -562,20 +553,20 @@ body {
 }
 
 .login-footer p {
-  color: var(--text-secondary);
+  color: #333333;
   font-size: 14px;
   margin: 0;
 }
 
 .login-link {
-  color: var(--accent);
+  color: #3D6B5E;
   text-decoration: none;
   font-weight: 500;
   transition: var(--transition);
 }
 
 .login-link:hover {
-  color: var(--accent-hover);
+  color: #2F5347;
   text-decoration: underline;
 }
 
@@ -865,7 +856,7 @@ body {
 
 .admin-subtitle {
   font-size: 0.9rem;
-  color: var(--text-secondary);
+  color: #333333;
   margin: 0;
 }
 
@@ -906,7 +897,7 @@ body {
 
 .admin-btn-secondary {
   background: transparent;
-  color: var(--text-secondary);
+  color: #333333;
   border: 1px solid var(--border);
 }
 
@@ -1160,7 +1151,7 @@ body {
 }
 
 .admin-space-desc {
-  color: var(--text-muted);
+  color: #666666;
   line-height: 1.6;
   margin: 0 0 1rem 0;
   font-size: 0.9rem;
@@ -1176,13 +1167,13 @@ body {
 .admin-meta-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  background: var(--cream);
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #666666;
+  border: 0.5px solid var(--border);
+  background: var(--bg-subtle);
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  border: 0.5px solid var(--border);
 }
 
 .admin-space-features {
@@ -1203,12 +1194,12 @@ body {
 }
 
 .admin-feature-tag {
-  background: var(--bg-light);
+  background: var(--bg-subtle);
   border: 0.5px solid var(--border);
   border-radius: 6px;
   padding: 0.25rem 0.75rem;
   font-size: 0.8rem;
-  color: var(--text-muted);
+  color: #666666;
 }
 
 .admin-space-actions {

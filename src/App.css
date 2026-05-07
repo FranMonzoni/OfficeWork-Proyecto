@@ -128,8 +128,7 @@ body {
 /* SECTION TITLE */
 .section-header {
   padding: 3rem 2rem 1.5rem;
-  max-width: 900px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .section-label {
@@ -151,8 +150,7 @@ body {
 /* FILTER BAR */
 .filter-bar {
   padding: 0 2rem 1.5rem;
-  max-width: 900px;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
@@ -180,8 +178,7 @@ body {
 /* CARDS GRID */
 .rooms-grid {
   padding: 0 2rem 4rem;
-  max-width: 900px;
-  margin: 0 auto;
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.25rem;

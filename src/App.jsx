@@ -95,7 +95,7 @@ const HomePage = () => {
       {/* HERO SECTION */}
       <div className="hero">
         <p className="hero-eyebrow">Espacios de trabajo</p>
-        <h1>Office Work,<br/><em>sin los compromisos.</em></h1>
+        <h1>Office Work<br/><em></em></h1>
         <p className="hero-desc">
           Una casa reformada en el corazón de la ciudad, convertida en espacios de trabajo flexibles para profesionales y equipos.
         </p>
@@ -246,20 +246,20 @@ const HomePage = () => {
         <h3>¿Querés saber más?</h3>
         <p>Contactanos para consultar tarifas, recorrer el espacio o reservar una visita sin compromiso.</p>
         <div className="contact-row">
-          <a href="tel:+541234567890" className="info-link">
+          <a href="tel:+543564472828" className="info-link">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 14a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 3.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.77-.77a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.5 17z"/>
             </svg>
             Llamanos
           </a>
-          <a href="mailto:info@officework.com" className="info-link">
+          <a href="mailto:mauriciomonzoni@hotmail.com" className="info-link">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
               <polyline points="22,6 12,13 2,6"/>
             </svg>
             Escribinos
           </a>
-          <a href="https://maps.google.com" target="_blank" className="info-link">
+          <a href="https://www.google.com/maps/place/Espa%C3%B1a+219,+San+Francisco,+C%C3%B3rdoba/@-31.4267348,-62.0896043,19z/data=!3m1!4b1!4m6!3m5!1s0x95cb283d64e87f37:0xa74fc0b21828a5ad!8m2!3d-31.4267348!4d-62.0889606!16s%2Fg%2F11vb_9gf3_?entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" className="info-link">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
               <circle cx="12" cy="10" r="3"/>

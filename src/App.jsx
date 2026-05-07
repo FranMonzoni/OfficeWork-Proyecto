@@ -52,6 +52,52 @@ const HomePage = () => {
           </a>
         </nav>
       </header>
+
+      <section className="hero">
+        <h2>Transforma tu Espacio de Trabajo</h2>
+        <p>
+          Descubre los espacios coworking más innovadores diseñados para potenciar tu creatividad y productividad.
+          Cada rincón está pensado para inspirarte y ayudarte a alcanzar tus metas profesionales.
+        </p>
+        <div style={{ 
+          display: 'flex', 
+          gap: '1rem', 
+          justifyContent: 'center', 
+          marginTop: '2rem',
+          flexWrap: 'wrap'
+        }}>
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.1)',
+            padding: '1rem',
+            borderRadius: 'var(--border-radius)',
+            textAlign: 'center',
+            minWidth: '150px'
+          }}>
+            <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🚀</div>
+            <div style={{ fontWeight: '600' }}>Innovación</div>
+          </div>
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.1)',
+            padding: '1rem',
+            borderRadius: 'var(--border-radius)',
+            textAlign: 'center',
+            minWidth: '150px'
+          }}>
+            <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>💡</div>
+            <div style={{ fontWeight: '600' }}>Creatividad</div>
+          </div>
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.1)',
+            padding: '1rem',
+            borderRadius: 'var(--border-radius)',
+            textAlign: 'center',
+            minWidth: '150px'
+          }}>
+            <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>⚡</div>
+            <div style={{ fontWeight: '600' }}>Productividad</div>
+          </div>
+        </div>
+      </section>
       
       <main>
         <section className="status">
@@ -98,6 +144,58 @@ const HomePage = () => {
           )}
         </section>
       </main>
+      
+      <footer>
+        <div className="footer-content">
+          <div className="footer-section">
+            <h3>🏢 Sobre Nosotros</h3>
+            <p>
+              Ofrecemos espacios de coworking innovadores diseñados para impulsar tu éxito profesional.
+              Cada espacio está equipado con tecnología de punta y un ambiente inspirador.
+            </p>
+          </div>
+          
+          <div className="footer-section">
+            <h3>📞 Contacto</h3>
+            <p>
+              <a href="mailto:info@coworking.com" style={{ color: 'inherit' }}>
+                info@coworking.com
+              </a>
+            </p>
+            <p>
+              <a href="tel:+541234567890" style={{ color: 'inherit' }}>
+                +54 123 456 7890
+              </a>
+            </p>
+          </div>
+          
+          <div className="footer-section">
+            <h3>🕐 Horarios</h3>
+            <p>Lunes a Viernes: 8:00 - 20:00</p>
+            <p>Sábados: 9:00 - 18:00</p>
+          </div>
+          
+          <div className="footer-section">
+            <h3>📍 Ubicación</h3>
+            <p>Av. Innovación #1234</p>
+            <p>Centro de Creatividad y Productividad</p>
+          </div>
+        </div>
+        
+        <div style={{ 
+          textAlign: 'center', 
+          marginTop: '2rem', 
+          paddingTop: '2rem', 
+          borderTop: '1px solid var(--border-color)',
+          fontSize: '0.9rem',
+          color: 'rgba(255, 255, 255, 0.7)'
+        }}>
+          <p>© 2024 Sistema de Espacios Coworking. Todos los derechos reservados.</p>
+          <p style={{ marginTop: '0.5rem' }}>
+            Hecho con ❤️ y creatividad para profesionales modernos
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };

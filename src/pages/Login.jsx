@@ -46,61 +46,86 @@ const Login = () => {
   };
 
   return (
-    <div className="login-page">
-      <div className="login-logo">
-        <h1 className="login-logo-text">Office Work</h1>
-      </div>
-      
-      <div className="login-card">
-        <h2 className="login-title">Iniciar Sesión</h2>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center px-4 py-12">
+      <div className="w-full max-w-md">
+        {/* Logo */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-white font-display">
+            <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+              Office Work
+            </span>
+          </h1>
+          <p className="text-gray-400 mt-2">Espacios de trabajo flexibles</p>
+        </div>
         
-        <form onSubmit={handleSubmit} className="login-form">
-          <div className="form-group">
-            <label className="form-label">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="form-input"
-              placeholder="tu@email.com"
-            />
-          </div>
-
-          <div className="form-group">
-            <label className="form-label">Contraseña</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="form-input"
-              placeholder="Tu contraseña"
-            />
-          </div>
-
-          {error && (
-            <div className="error-message">
-              {error}
+        {/* Login Card */}
+        <div className="card p-8">
+          <h2 className="text-2xl font-bold text-white mb-6 text-center font-display">
+            Iniciar Sesión
+          </h2>
+          
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="input-field w-full"
+                placeholder="tu@email.com"
+              />
             </div>
-          )}
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="login-button"
-          >
-            {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
-          </button>
-        </form>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Contraseña
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="input-field w-full"
+                placeholder="Tu contraseña"
+              />
+            </div>
 
-        <div className="login-footer">
-          <p>
-            ¿No tienes cuenta?{' '}
-            <Link to="/register" className="login-link">
-              Regístrate aquí
-            </Link>
-          </p>
+            {error && (
+              <div className="bg-red-900/20 border border-red-800 text-red-400 px-4 py-3 rounded-lg text-sm">
+                {error}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn-primary w-full py-3 text-lg font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? (
+                <>
+                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                  </svg>
+                  Iniciando sesión...
+                </>
+              ) : (
+                'Iniciar Sesión'
+              )}
+            </button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <p className="text-gray-400 text-sm">
+              ¿No tienes cuenta?{' '}
+              <Link to="/register" className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200">
+                Regístrate aquí
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

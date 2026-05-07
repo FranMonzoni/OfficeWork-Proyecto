@@ -1,14 +1,8 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Permitir lectura pública a la colección espacios
+    // Permitir lectura y escritura en la colección espacios
     match /espacios/{espacioId} {
-      allow read: if true;
-      allow write: if request.auth != null && request.auth.token.email == 'mauriciomonzoni@hotmail.com';
-    }
-    
-    // Permitir lectura de toda la colección espacios
-    match /espacios/{document=**} {
       allow read: if true;
       allow write: if request.auth != null && request.auth.token.email == 'mauriciomonzoni@hotmail.com';
     }

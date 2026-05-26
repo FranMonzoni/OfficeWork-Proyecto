@@ -109,7 +109,7 @@ const HomePage = () => {
             <span className="text-3xl md:text-4xl text-blue-600"></span>
           </h1>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
-            Una casa reformada en el corazón de la ciudad, convertida en espacios de trabajo flexibles para profesionales y equipos.
+            Casas reformadas en el corazón de la ciudad, convertidas en espacios de trabajo flexibles para profesionales y equipos.
           </p>
           <div className="flex flex-wrap justify-center gap-3 mb-8">
             <div className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:bg-gray-50 transition-colors duration-200 shadow-sm">

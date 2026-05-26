@@ -21,7 +21,8 @@ const Administrador = () => {
     orientation: '',
     light: '',
     features: [],
-    color: '#E8F0EE'
+    color: '#E8F0EE',
+    direccion: 'Fleming'
   });
 
   useEffect(() => {
@@ -92,7 +93,8 @@ const Administrador = () => {
       orientation: '',
       light: '',
       features: [],
-      color: '#E8F0EE'
+      color: '#E8F0EE',
+      direccion: 'Fleming'
     });
     setEditingEspacio(null);
     setShowForm(false);
@@ -221,7 +223,7 @@ const Administrador = () => {
             </div>
             
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="group">
                   <label className="block text-sm font-medium text-blue-600 mb-2 flex items-center gap-2">
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -258,6 +260,25 @@ const Administrador = () => {
                     <option value="sala_reuniones">Sala de Reuniones</option>
                     <option value="desk">Escritorio</option>
                     <option value="area_comun">Área Común</option>
+                  </select>
+                </div>
+
+                <div className="group">
+                  <label className="block text-sm font-medium text-cyan-600 mb-2 flex items-center gap-2">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    Dirección (Casa)
+                  </label>
+                  <select
+                    value={formData.direccion || 'Fleming'}
+                    onChange={(e) => setFormData({ ...formData, direccion: e.target.value })}
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 hover:bg-gray-100"
+                  >
+                    <option value="Fleming">Fleming</option>
+                    <option value="Iturraspe">Iturraspe</option>
+                    <option value="España">España</option>
+                    <option value="Colón">Colón</option>
                   </select>
                 </div>
               </div>
@@ -490,12 +511,21 @@ const Administrador = () => {
                         {espacio.name}
                       </h4>
                     </div>
-                    <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-medium text-blue-600 bg-blue-100 rounded-full border border-blue-200">
-                      <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="3" y="3" width="18" height="18" rx="2"/>
-                      </svg>
-                      {espacio.typeLabel}
-                    </span>
+                    <div className="flex flex-wrap gap-1.5 mt-2">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium text-blue-600 bg-blue-100 rounded-full border border-blue-200">
+                        <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        </svg>
+                        {espacio.typeLabel}
+                      </span>
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium text-purple-600 bg-purple-100 rounded-full border border-purple-200">
+                        <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/>
+                          <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        {espacio.direccion || 'Fleming'}
+                      </span>
+                    </div>
                   </div>
                   <div className="flex flex-col items-end">
                     <span className={`inline-flex items-center gap-1 px-3 py-1 text-xs font-medium rounded-full border ${

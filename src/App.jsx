@@ -40,6 +40,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('todos');
+  const [selectedHouse, setSelectedHouse] = useState('todas');
 
   useEffect(() => {
     fetchEspacios();
@@ -59,19 +60,25 @@ const HomePage = () => {
   };
 
   const getFilteredEspacios = () => {
+    let result = espacios;
+
+    // Filtro por casa
+    if (selectedHouse !== 'todas') {
+      result = result.filter(e => (e.direccion || 'Fleming') === selectedHouse);
+    }
+
+    // Filtro por tipo/disponibilidad
     if (filter === 'disponible') {
-      return espacios.filter(e => e.available);
+      result = result.filter(e => e.available);
+    } else if (filter === 'oficina') {
+      result = result.filter(e => e.type === 'oficina');
+    } else if (filter === 'reuniones') {
+      result = result.filter(e => e.type === 'sala_reuniones');
+    } else if (filter === 'eventos') {
+      result = result.filter(e => e.type === 'area_comun');
     }
-    if (filter === 'oficina') {
-      return espacios.filter(e => e.type === 'oficina');
-    }
-    if (filter === 'reuniones') {
-      return espacios.filter(e => e.type === 'sala_reuniones');
-    }
-    if (filter === 'eventos') {
-      return espacios.filter(e => e.type === 'area_comun');
-    }
-    return espacios;
+
+    return result;
   };
 
   const filteredEspacios = getFilteredEspacios();
@@ -160,6 +167,32 @@ const HomePage = () => {
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-display">
           Encontrá el lugar ideal para vos
         </h2>
+      </div>
+
+      {/* HOUSE FILTER BAR */}
+      <div className="px-6 pb-6 animate-fade-in">
+        <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto bg-gray-100/50 p-2.5 rounded-2xl border border-gray-200/60 backdrop-blur-sm">
+          {['todas', 'Fleming', 'Iturraspe', 'España', 'Colón'].map((house) => {
+            const isActive = selectedHouse === house;
+            return (
+              <button
+                key={house}
+                onClick={() => setSelectedHouse(house)}
+                className={`px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center gap-2 ${
+                  isActive
+                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30'
+                    : 'bg-white/80 text-gray-600 border border-gray-100 hover:bg-white hover:text-gray-900 shadow-sm'
+                }`}
+              >
+                <svg className={`w-4 h-4 transition-colors duration-300 ${isActive ? 'text-white' : 'text-blue-600'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M3 9l9-7 9 7v11l-9-7-9 7z"/>
+                  <path d="M9 22V12h6v10"/>
+                </svg>
+                {house === 'todas' ? 'Todas las casas' : `Casa ${house}`}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* FILTER BAR */}
@@ -267,9 +300,12 @@ const HomePage = () => {
                 </div>
               </div>
               <div className="space-y-3">
-                <p className="text-xs font-medium text-blue-600 uppercase tracking-wider">
-                  {espacio.typeLabel}
-                </p>
+                <div className="flex items-center justify-between text-xs font-medium uppercase tracking-wider gap-2">
+                  <span className="text-blue-600">{espacio.typeLabel}</span>
+                  <span className="text-purple-600 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-100/80 whitespace-nowrap">
+                    Casa {espacio.direccion || 'Fleming'}
+                  </span>
+                </div>
                 <h3 className="text-xl font-semibold text-gray-900 font-display">
                   {espacio.name}
                 </h3>

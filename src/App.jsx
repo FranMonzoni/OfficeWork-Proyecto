@@ -7,6 +7,7 @@ import AdminRoute from './components/AdminRoute'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Administrador from './pages/Administrador'
+import Calendar from './components/Calendar'
 
 // Componente de menú hamburguesa
 const MenuDropdown = () => {
@@ -41,6 +42,7 @@ const HomePage = () => {
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('todos');
   const [selectedHouse, setSelectedHouse] = useState('todas');
+  const [activeCalendarSpace, setActiveCalendarSpace] = useState(null);
 
   useEffect(() => {
     fetchEspacios();
@@ -341,11 +343,75 @@ const HomePage = () => {
                     </span>
                   )}
                 </div>
+                {/* Horarios */}
+                {espacio.horarios && espacio.horarios.length > 0 && (
+                  <div className="flex flex-wrap gap-1 pt-1">
+                    {espacio.horarios.map(h => (
+                      <span key={h} className="px-2 py-0.5 bg-orange-50 text-orange-700 text-[10px] uppercase font-semibold rounded border border-orange-200/50 block">
+                        {h}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {/* Botón Ver Disponibilidad */}
+                <div className="pt-3 border-t border-gray-100 flex items-center justify-between gap-3">
+                  <button
+                    onClick={() => setActiveCalendarSpace(espacio)}
+                    className="flex-1 px-4 py-2 bg-gray-50 hover:bg-blue-50 hover:text-blue-600 text-gray-600 text-xs font-semibold rounded-xl border border-gray-200 hover:border-blue-200 transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm"
+                  >
+                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                      <line x1="16" y1="2" x2="16" y2="6"/>
+                      <line x1="8" y1="2" x2="8" y2="6"/>
+                      <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    Ver Disponibilidad
+                  </button>
+                </div>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* CALENDAR MODAL */}
+      {activeCalendarSpace && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
+          <div className="bg-gradient-to-br from-white to-background-100 border border-gray-200 rounded-2xl max-w-sm w-full shadow-2xl p-6 relative animate-slide-up">
+            <button
+              onClick={() => setActiveCalendarSpace(null)}
+              className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-all duration-200"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+            <div className="mb-4 pr-8">
+              <h3 className="text-xl font-bold text-gray-900 font-display">
+                Disponibilidad
+              </h3>
+              <p className="text-gray-500 text-sm mt-1">
+                {activeCalendarSpace.name} &bull; Casa {activeCalendarSpace.direccion || 'Fleming'}
+              </p>
+            </div>
+            <div className="mt-2">
+              <Calendar
+                selectedDates={activeCalendarSpace.occupiedDates || []}
+                readOnly={true}
+              />
+            </div>
+            <div className="mt-6 flex justify-end">
+              <button
+                onClick={() => setActiveCalendarSpace(null)}
+                className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-200"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* FOOTER INFO */}
       <div className="bg-white border-t border-gray-200 py-16 px-6">

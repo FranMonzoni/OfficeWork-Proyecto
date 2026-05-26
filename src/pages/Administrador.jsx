@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getEspacios, addEspacio, updateEspacio, deleteEspacio } from '../services/espaciosService';
 import { useNavigate } from 'react-router-dom';
+import Calendar from '../components/Calendar';
 
 const Administrador = () => {
   const { user, logout } = useAuth();
@@ -22,7 +23,9 @@ const Administrador = () => {
     light: '',
     features: [],
     color: '#E8F0EE',
-    direccion: 'Fleming'
+    direccion: 'Fleming',
+    horarios: [],
+    occupiedDates: []
   });
 
   useEffect(() => {
@@ -94,7 +97,9 @@ const Administrador = () => {
       light: '',
       features: [],
       color: '#E8F0EE',
-      direccion: 'Fleming'
+      direccion: 'Fleming',
+      horarios: [],
+      occupiedDates: []
     });
     setEditingEspacio(null);
     setShowForm(false);
@@ -419,6 +424,66 @@ const Administrador = () => {
                 />
               </div>
 
+              {/* Horarios y Calendario de Disponibilidad */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-gray-200 pt-6">
+                {/* Checkboxes de Horarios */}
+                <div className="group">
+                  <label className="block text-sm font-medium text-orange-600 mb-4 flex items-center gap-2">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10"/>
+                      <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    Horarios Disponibles
+                  </label>
+                  <div className="space-y-3">
+                    {['mañana', 'mediodia', 'tarde'].map((turno) => {
+                      const label = turno === 'mañana' ? 'Mañana (08:00 - 12:00)' : 
+                                    turno === 'mediodia' ? 'Mediodía (12:00 - 15:00)' : 
+                                    'Tarde (15:00 - 20:00)';
+                      const isChecked = (formData.horarios || []).includes(turno);
+                      return (
+                        <label key={turno} className="flex items-center gap-3 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors duration-150 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={(e) => {
+                              const newHorarios = e.target.checked
+                                ? [...(formData.horarios || []), turno]
+                                : (formData.horarios || []).filter(h => h !== turno);
+                              setFormData({ ...formData, horarios: newHorarios });
+                            }}
+                            className="w-5 h-5 text-orange-600 bg-white border-gray-300 rounded focus:ring-orange-500 focus:ring-2"
+                          />
+                          <span className="text-sm font-medium text-gray-700 capitalize">
+                            {label}
+                          </span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Calendario de Días Ocupados */}
+                <div className="group">
+                  <label className="block text-sm font-medium text-rose-600 mb-4 flex items-center gap-2">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                      <line x1="16" y1="2" x2="16" y2="6"/>
+                      <line x1="8" y1="2" x2="8" y2="6"/>
+                      <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    Marcar Días Ocupados
+                  </label>
+                  <Calendar
+                    selectedDates={formData.occupiedDates || []}
+                    onChange={(newDates) => setFormData({ ...formData, occupiedDates: newDates })}
+                  />
+                  <p className="text-xs text-gray-500 mt-2">
+                    Haz clic en los días ocupados (se pintarán de rojo).
+                  </p>
+                </div>
+              </div>
+
               <div className="flex items-center justify-between p-4 bg-gray-100 rounded-lg border border-gray-200">
                 <label className="flex items-center gap-3 text-gray-700 cursor-pointer">
                   <input
@@ -561,7 +626,38 @@ const Administrador = () => {
                     </svg>
                     <span className="font-medium">{espacio.cap}</span>
                   </span>
+                  {espacio.occupiedDates && espacio.occupiedDates.length > 0 && (
+                    <span className="flex items-center gap-1 px-2 py-0.5 bg-red-50 text-red-700 text-xs rounded-lg border border-red-150 font-semibold shadow-sm">
+                      <svg className="w-3.5 h-3.5 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                      </svg>
+                      {espacio.occupiedDates.length} d
+                    </span>
+                  )}
                 </div>
+
+                {/* Horarios */}
+                {espacio.horarios && espacio.horarios.length > 0 && (
+                  <div className="mb-4">
+                    <div className="text-xs font-medium text-gray-500 mb-2 flex items-center gap-1.5">
+                      <svg className="w-3 h-3 text-orange-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                      </svg>
+                      Horarios Disponibles
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {espacio.horarios.map(h => (
+                        <span key={h} className="px-2.5 py-0.5 bg-orange-50 text-orange-700 text-xs rounded-full border border-orange-200/60 capitalize font-medium">
+                          {h}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* Características */}
                 {espacio.features && espacio.features.length > 0 && (

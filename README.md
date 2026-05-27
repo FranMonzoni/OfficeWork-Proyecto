@@ -8,7 +8,7 @@ Una aplicación web moderna, interactiva y premium para la gestión y visualizac
 [![Firebase](https://img.shields.io/badge/Firebase-12.1-ffca28.svg?style=flat-square&logo=firebase)](https://firebase.google.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
 
-🔗 **Demo Online:** [https://officeworkweb.netlify.app/](https://officeworkweb.netlify.app/)
+🔗 **Web Online:** [https://officeworkweb.netlify.app/](https://officeworkweb.netlify.app/)
 
 ---
 

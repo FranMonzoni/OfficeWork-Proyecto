@@ -45,8 +45,3 @@ Una aplicación web moderna, interactiva y premium para la gestión y visualizac
 - **Enrutamiento:** React Router v7 para la navegación segura entre la página de inicio, login y el panel administrador.
 
 ---
----
-
-## 📄 Licencia
-
-Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para más detalles.
